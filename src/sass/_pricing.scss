@@ -1,0 +1,96 @@
+.pricing {
+  padding-top: 25px;
+  text-align: center;
+  .swiper {
+    padding-bottom: 40px;
+  }
+  @include media-breakpoint-up(md) {
+    padding-top: 55px;
+    padding-bottom: 18px;
+    .section-title-secondary {
+      margin-bottom: 30px;
+    }
+    .swiper {
+      margin-top: 39px;
+    }
+  }
+}
+
+.plan-item {
+  width: 272px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  border: 1px solid $light-border-color;
+
+  color: $light-text;
+  &__name {
+    margin-bottom: 10px;
+    color: $dark-text;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  &__price-wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: $dark-text;
+    border-bottom: 1px solid $light-border-color;
+    border-top: 1px solid $light-border-color;
+  }
+  &__currency {
+    vertical-align: super;
+    font-size: 0.4em;
+  }
+  &__price {
+    margin-bottom: 0;
+    font-size: 3.75rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  &__period {
+    margin: 0;
+    color: $light-text;
+    font-size: 1.125rem;
+  }
+  &__desc {
+    margin: 20px;
+    font-size: 1.125rem;
+  }
+  &__name,
+  &__price-wrapper,
+  &__period,
+  &__btn-order {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  $parent: &;
+  &:hover {
+    & #{$parent}__name {
+      color: $primary;
+    }
+    & #{$parent}__price-wrapper {
+      color: white;
+      background-color: $primary;
+    }
+    & #{$parent}__period {
+      color: white;
+    }
+    & #{$parent}__btn-order {
+      @extend .btn-outline-primary-gray:hover;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 23px;
+    &__name {
+      margin-bottom: 18px;
+    }
+    &__price-wrapper {
+      padding-top: 32px;
+      padding-bottom: 31px;
+    }
+    &__desc {
+      margin: 44px 30px 38px 30px;
+    }
+  }
+}

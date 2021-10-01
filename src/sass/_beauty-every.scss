@@ -1,0 +1,37 @@
+.beauty-every {
+  padding-top: 25px;
+  color: $dark-text;
+
+  &__list {
+    padding: 0;
+    margin-bottom: 25px;
+    list-style: none;
+    > li {
+      text-align: left;
+      font-size: 1.125rem;
+      margin-bottom: 9px;
+      > img {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
+        object-fit: scale-down;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-top: 66px;
+    .section-title-primary {
+      margin-top: 48px;
+    }
+    .section-title-secondary {
+      margin-bottom: 27px;
+    }
+    .section-hr {
+      margin-bottom: 20px;
+    }
+    .section-text {
+      margin-bottom: 28px;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<div class="pricing" id="pricing">
+    <div class="container-xl">
+        <h3 class="section-title-primary">quality has its price</h3>
+        <h2 class="section-title-secondary">Pricings & Plans</h2>
+        <span class="section-hr"></span>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <script locals>
+                    module.exports = {
+                        plans:
+                            [{
+                                name: 'Free',
+                                price: '0',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                            },
+                            {
+                                name: 'Personal',
+                                price: '25',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                            },
+                            {
+                                name: 'Business',
+                                price: '50',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                            },
+                            {
+                                name: 'Ultimate',
+                                price: '99',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                            }]
+                    }
+                </script>
+                <each loop="plan in plans">
+                    <div class="swiper-slide plan-item">
+                        <p class="plan-item__name">{{plan.name}}</p>
+                        <div class="plan-item__price-wrapper">
+                            <p class="plan-item__price"><span class="plan-item__currency">$</span>{{plan.price}}</p>
+                            <p class="plan-item__period">/per month</p>
+                        </div>
+                        <p class="plan-item__desc">{{plan.desc}}</p>
+                        <button class="btn btn-outline-primary-gray text-uppercase plan-item__btn-order">ORDER
+                            NOW</button>
+                    </div>
+                </each>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
