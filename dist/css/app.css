@@ -13428,13 +13428,12 @@ readers do not read off random characters that represent icons */
 }
 .feature-item__name {
   margin-bottom: 12px;
-  line-height: 1.2;
+  line-height: 1;
 }
 .feature-item__about {
   margin: 0;
   padding: 0 10px;
   font-size: 0.75em;
-  line-height: 1.4;
   color: #999;
 }
 @media (min-width: 768px) {
@@ -13471,6 +13470,7 @@ readers do not read off random characters that represent icons */
 @media (min-width: 768px) {
   .beauty-every {
     padding-top: 66px;
+    padding-bottom: 19px;
   }
   .beauty-every .section-title-primary {
     margin-top: 48px;
@@ -13494,7 +13494,7 @@ readers do not read off random characters that represent icons */
 }
 @media (min-width: 768px) {
   .customize {
-    padding-top: 54px;
+    padding-top: 35px;
     padding-bottom: 40px;
   }
   .customize .section-title-primary {
