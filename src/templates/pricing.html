@@ -11,22 +11,22 @@
                             [{
                                 name: 'Free',
                                 price: '0',
-                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <span class="text-primary">lacinia</span> consectetur.',
                             },
                             {
                                 name: 'Personal',
                                 price: '25',
-                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <span class="text-primary">lacinia</span> consectetur.',
                             },
                             {
                                 name: 'Business',
                                 price: '50',
-                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <span class="text-primary">lacinia</span> consectetur.',
                             },
                             {
                                 name: 'Ultimate',
                                 price: '99',
-                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
+                                desc: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <span class="text-primary">lacinia</span> consectetur.',
                             }]
                     }
                 </script>
@@ -37,7 +37,7 @@
                             <p class="plan-item__price"><span class="plan-item__currency">$</span>{{plan.price}}</p>
                             <p class="plan-item__period">/per month</p>
                         </div>
-                        <p class="plan-item__desc">{{plan.desc}}</p>
+                        <p class="plan-item__desc">{{{plan.desc}}}</p>
                         <button class="btn btn-outline-primary-gray text-uppercase plan-item__btn-order">ORDER
                             NOW</button>
                     </div>

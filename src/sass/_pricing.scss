@@ -56,6 +56,7 @@
   &__desc {
     margin: 20px;
     font-size: 1.125rem;
+    line-height: 1.45;
   }
   &__name,
   &__price-wrapper,
@@ -90,7 +91,7 @@
       padding-bottom: 31px;
     }
     &__desc {
-      margin: 44px 30px 38px 30px;
+      margin: 45px 30px 40px 30px;
     }
   }
 }

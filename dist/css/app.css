@@ -13685,6 +13685,7 @@ readers do not read off random characters that represent icons */
 .plan-item__desc {
   margin: 20px;
   font-size: 1.125rem;
+  line-height: 1.45;
 }
 .plan-item__name,
 .plan-item__price-wrapper,
@@ -13714,7 +13715,7 @@ readers do not read off random characters that represent icons */
     padding-bottom: 31px;
   }
   .plan-item__desc {
-    margin: 44px 30px 38px 30px;
+    margin: 45px 30px 40px 30px;
   }
 }
 
@@ -13771,7 +13772,7 @@ readers do not read off random characters that represent icons */
   .form-feedback {
     position: relative;
     padding: 59px 85px 40px 66px;
-    margin-top: 51px;
+    margin-top: 52px;
     margin-bottom: -64px;
   }
   .form-feedback .form-row {
