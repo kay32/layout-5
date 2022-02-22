@@ -1,18 +1,39 @@
+// custom
+$primary-dark: #15141a;
+$dark-text: #1a1a1a;
+$light-text: #999;
+$light-border: #e0e0e0;
+$gray-text: #444348;
+$customize-bg: #f2f2f2;
+$contacts-bg: #ededed;
+
+$spacer: 20px;
+
+// bootstrap
+$white: #fff;
+$primary: #008ed6;
+
+$link-color: inherit;
+$link-decoration: none;
+$link-hover-color: inherit;
+$link-hover-decoration: none;
+
 $font-family-base: 'Source Sans Pro', sans-serif;
-// $font-size-base: 1rem;
+$font-size-base: 1rem;
 
 $grid-gutter-width: 30px;
 $container-max-widths: (
   xl: 1170px + $grid-gutter-width,
 );
 
-$primary: #008ed6;
+$hr-border-color: $contacts-bg;
+
 $btn-font-size: 0.875rem;
 $btn-font-weight: bold;
 $btn-padding-y: 14px;
 
-$form-group-margin-bottom: 10px;
-$input-color: white;
+$form-group-margin-bottom: $spacer * 0.5;
+$input-color: $white;
 $input-bg: transparent;
 $input-border-color: rgba(255, 255, 255, 0.2);
 $input-font-size: 0.875rem;
@@ -21,14 +42,16 @@ $input-padding-x: 1rem;
 $input-padding-y: 0.84rem;
 $input-placeholder-color: rgba(255, 255, 255, 0.2);
 
+$headings-margin-bottom: $spacer;
+$paragraph-margin-bottom: $spacer;
+
+$navbar-padding-y: 0;
+$navbar-nav-link-padding-x: 0;
+
+// font-awesome
 $fa-font-path: '../fonts/font-awesome';
 
+// swiper
 :root {
   --swiper-theme-color: $primary;
 }
-
-$header-navbar-height: 54px;
-$theme-color: #15141a;
-$dark-text: #1a1a1a;
-$light-text: #999;
-$light-border-color: #e0e0e0;

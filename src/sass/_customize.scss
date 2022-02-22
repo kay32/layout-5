@@ -1,20 +1,27 @@
 .customize {
-  padding-top: 25px;
-  background-color: #f2f2f2;
-  color: $dark-text;
+  padding: $spacer * 2 0;
+  background-color: $customize-bg;
   text-align: center;
 
+  // Needed because the image is larger than the bootstrap grid
+  // and you can't clip the shadow.
+  &__image {
+    transform: scale(1.05);
+  }
+
   @include media-breakpoint-up(md) {
-    padding-top: 35px;
-    padding-bottom: 40px;
-    .section-title-primary {
-      margin-top: 92px;
-    }
-    .section-title-secondary {
-      margin-bottom: 29px;
-    }
-    .section-hr {
-      margin-bottom: 17px;
+    padding-top: 45px;
+    padding-bottom: 32px;
+
+    .section-title {
+      margin-top: 82px;
+
+      &__secondary {
+        margin-bottom: 29px;
+      }
+      &::after {
+        margin-bottom: 23px;
+      }
     }
   }
 }

@@ -1,31 +1,58 @@
 .contacts {
-  padding-top: 25px;
-  background-color: #ededed;
+  padding-top: $spacer * 2;
+  background-color: $contacts-bg;
+  color: $light-text;
+  font-size: 1.125rem;
   text-align: center;
 
   @include media-breakpoint-up(md) {
     padding-top: 55px;
-    .section-title-secondary {
-      margin-bottom: 30px;
-    }
-    .section-hr {
-      margin-bottom: 53px;
+
+    .section-title {
+      &__secondary {
+        margin-bottom: 30px;
+      }
+      &::after {
+        margin-bottom: 39px;
+      }
     }
   }
 }
 
 .contact-item {
-  color: $light-text;
-  font-size: 1.125rem;
+  display: block;
+  padding: $spacer;
+
+  &__link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li > a {
+      padding: 0 5px;
+    }
+  }
+  &_link,
+  &__link-list > li > a {
+    border-radius: 5px;
+    transition: color 300ms ease, background-color 300ms ease;
+
+    &:hover {
+      color: $primary;
+      background-color: rgba($color: $black, $alpha: 0.1);
+    }
+  }
   &__icon {
-    margin-bottom: 10px;
+    display: inline-block;
+    margin-bottom: $spacer * 0.5;
     width: 32px;
     height: 32px;
     object-fit: scale-down;
   }
-  a {
-    color: inherit;
+  &__text {
+    margin: 0;
   }
+
   @include media-breakpoint-up(md) {
     &__icon {
       margin-bottom: 25px;
@@ -35,40 +62,46 @@
 
 .form-feedback {
   max-width: 770px;
-  padding: 25px;
+  padding: $grid-gutter-width * 0.5;
   margin: 0 auto;
-  background-color: $theme-color;
+  background-color: $primary-dark;
+
   &__message-wrapper {
-    padding-bottom: 20px;
-    textarea {
+    padding-bottom: $spacer;
+
+    > textarea {
       resize: none;
     }
   }
+  .form-control::placeholder {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
   @include media-breakpoint-up(md) {
     position: relative;
     padding: 59px 85px 40px 66px;
-    margin-top: 52px;
+    margin-top: 47px;
     margin-bottom: -64px;
 
+    &__message-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      > textarea {
+        flex-grow: 1;
+      }
+    }
+    .form-group {
+      margin-bottom: $spacer;
+    }
     .form-row {
       margin-right: -10px;
       margin-left: -10px;
       > [class*='col-'] {
         padding-left: 10px;
         padding-right: 10px;
-      }
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    &__message-wrapper {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      textarea {
-        flex-grow: 1;
       }
     }
   }

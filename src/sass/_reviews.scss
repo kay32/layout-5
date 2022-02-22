@@ -1,23 +1,40 @@
 .reviews {
-  padding: 25px 0;
-
-  background-color: $theme-color;
+  padding: $spacer * 2 0;
+  background-color: $primary-dark;
   background-image: url('../img/reviews-background.png');
   background-size: cover;
-
-  color: white;
+  color: $white;
   text-align: center;
 
-  .swiper {
-    padding-bottom: 34px;
+  .section-title {
+    &__secondary {
+      color: currentColor;
+    }
   }
+
+  @include media-breakpoint-up(md) {
+    padding-top: 58px;
+    padding-bottom: 60px;
+
+    .section-title {
+      &__secondary {
+        margin-bottom: 30px;
+      }
+      &::after {
+        margin-bottom: 88px;
+      }
+    }
+  }
+}
+
+.reviews-swiper {
+  padding-bottom: 33px;
+
   .swiper-pagination {
+    bottom: 0;
     display: flex;
     justify-content: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+
     .swiper-pagination-bullet {
       display: block;
       border-radius: 50%;
@@ -26,12 +43,13 @@
       height: 14px;
       position: relative;
       background-color: transparent;
-      transition: background-color 0.2s ease-in-out;
+      transition: background-color 300ms ease;
+
       &::after {
-        z-index: -1;
         content: '';
         display: block;
         position: absolute;
+        z-index: -1;
         top: 0;
         left: 0;
         bottom: 0;
@@ -39,54 +57,52 @@
         margin: auto;
         width: 6px;
         height: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: thin solid rgba(255, 255, 255, 0.5);
         border-radius: 2px;
       }
-      .swiper-pagination-clickable & {
-        cursor: pointer;
+      &:hover,
+      &-active {
+        background-color: currentColor;
       }
-    }
-    .swiper-pagination-bullet-active {
-      background-color: white;
-    }
-  }
-
-  @include media-breakpoint-up(md) {
-    padding-top: 59px;
-    padding-bottom: 60px;
-    .section-title-secondary {
-      margin-bottom: 30px;
-    }
-    .swiper {
-      min-height: 331px;
-      margin-top: 57px;
     }
   }
 }
 
 .review-item {
   text-align: left;
+
   &__text {
-    margin-bottom: 25px;
-    font-size: 1.5rem;
+    margin-bottom: $spacer;
+    font-size: 1.3rem;
     font-style: italic;
     line-height: 1.3;
   }
   &__avatar {
-    float: left;
+    margin-right: $spacer;
     width: 59px;
     height: 59px;
     border-radius: 50%;
     object-fit: scale-down;
-    margin-right: 25px;
   }
   &__name {
-    margin-bottom: 4px;
+    margin-bottom: $spacer * 0.25;
     font-size: 1rem;
   }
   &__prof {
     margin: 0;
     font-size: 0.875rem;
     font-weight: bold;
+  }
+
+  @include media-breakpoint-up(md) {
+    min-height: 298px;
+
+    &__text {
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+    }
+    &__avatar {
+      margin-right: 24px;
+    }
   }
 }

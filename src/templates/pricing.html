@@ -1,12 +1,14 @@
 <div class="pricing" id="pricing">
-    <div class="container-xl">
-        <h3 class="section-title-primary">quality has its price</h3>
-        <h2 class="section-title-secondary">Pricings & Plans</h2>
-        <span class="section-hr"></span>
-        <div class="swiper">
+    <div class="container">
+        <div class="section-title">
+            <h3 class="section-title__primary">quality has its price</h3>
+            <h2 class="section-title__secondary">Pricings & Plans</h2>
+        </div>
+        <div class="swiper pricing-swiper">
             <div class="swiper-wrapper">
                 <script locals>
                     module.exports = {
+                        currency: '$',
                         plans:
                             [{
                                 name: 'Free',
@@ -31,16 +33,17 @@
                     }
                 </script>
                 <each loop="plan in plans">
+                    <!-- plan slide start -->
                     <div class="swiper-slide plan-item">
-                        <p class="plan-item__name">{{plan.name}}</p>
+                        <h4 class="plan-item__name">{{plan.name}}</h4>
                         <div class="plan-item__price-wrapper">
-                            <p class="plan-item__price"><span class="plan-item__currency">$</span>{{plan.price}}</p>
+                            <p class="plan-item__price" data-currency={{currency}}>{{plan.price}}</p>
                             <p class="plan-item__period">/per month</p>
                         </div>
                         <p class="plan-item__desc">{{{plan.desc}}}</p>
-                        <button class="btn btn-outline-primary-gray text-uppercase plan-item__btn-order">ORDER
-                            NOW</button>
+                        <button class="btn btn-outline-primary-gray plan-item__btn-order">ORDER NOW</button>
                     </div>
+                    <!-- plan slide end -->
                 </each>
             </div>
             <div class="swiper-pagination"></div>

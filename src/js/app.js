@@ -1,83 +1,134 @@
-$(function() {
-  let headerNavbar = $('.header-navbar');
-  let headerNavbarWrapper = headerNavbar.find('.header-navbar__wrapper');
-  let md = window.matchMedia('(min-width: 768px)');
+$(function () {
+  const header = $('.page-header');
+  const headerHeight = header.height();
+  const headerTop = header.offset().top;
+  const intro = $('.intro');
+  const introOffset = headerTop + headerHeight;
+
+  const md = window.matchMedia('(min-width: 768px)');
   matchMd(md);
   md.addEventListener('change', matchMd);
 
-  function setSticked(e) {
-    if (window.pageYOffset >= headerNavbar.offset().top) {
-      headerNavbarWrapper.addClass('header-navbar__wrapper_sticked');
-    } else {
-      headerNavbarWrapper.removeClass('header-navbar__wrapper_sticked');
-    }
-  }
-
   function matchMd(e) {
     if (e.matches) {
-      setSticked(e);
-      $(window).on('scroll.setSticked', setSticked);
+      intro.css('padding-top', introOffset + 43);
+      setFixed(e);
+      $(window).on('scroll.setFixed', setFixed);
     } else {
-      headerNavbarWrapper.addClass('header-navbar__wrapper_sticked');
-      $(window).off('scroll.setSticked');
+      intro.css('padding-top', introOffset + 25);
+      header.addClass('page-header_fixed');
+      $(window).off('scroll.setFixed');
     }
   }
 
+  function setFixed(e) {
+    if (window.pageYOffset >= headerTop) {
+      header.addClass('page-header_fixed');
+    } else {
+      header.removeClass('page-header_fixed');
+    }
+  }
+
+  $('html').css('scroll-padding-top', headerHeight);
   $('body').scrollspy({
-    target: '#headerNav',
-    offset: headerNavbar.height() + 1,
+    target: '#navbarMain',
+    offset: header.height() + 1,
   });
 
-  let headerNav = $('#headerNav');
-  headerNav.find('.nav-link[href^="#"]').on('click', function(e) {
-    headerNav.collapse('hide');
+  const navbarMain = $('#navbarMain');
+  navbarMain.find('.nav-link[href^="#"]').on('click', function (e) {
+    navbarMain.collapse('hide');
   });
 
-  new Swiper('.reviews .swiper', {
+  const reviewsElement = document.querySelector('.reviews-swiper');
+  const reviewsSwiper = new Swiper(reviewsElement, {
+    allowTouchMove: true,
     loop: true,
     slidesPerView: 1,
-    spaceBetween: 30,
+    spaceBetween: 15,
+    initialSlide: 2,
     pagination: {
-      el: '.swiper-pagination',
+      el: '.reviews-swiper .swiper-pagination',
       clickable: true,
     },
     breakpoints: {
-      992: {
+      768: {
         slidesPerView: 2,
         spaceBetween: 30,
       },
     },
   });
+  reviewsSwiper.autoplay.delay = 5000;
 
-  new Swiper('.features .swiper, .pricing .swiper', {
+  if ('IntersectionObserver' in window) {
+    const options = {
+      threshold: 1.0,
+    };
+    const callback = (entries, observer) => {
+      reviewsSwiper.autoplay[entries[0].isIntersecting ? 'start' : 'stop']();
+    };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(reviewsElement);
+  } else {
+    reviewsSwiper.autoplay.start();
+  }
+
+  new Swiper('.features-swiper', {
+    allowTouchMove: true,
     slidesPerView: 1,
-    spaceBetween: 10,
+    spaceBetween: 15,
     pagination: {
-      el: '.swiper-pagination',
+      el: '.features-swiper .swiper-pagination',
       clickable: true,
     },
     breakpoints: {
+      576: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 15,
+      },
       992: {
         slidesPerView: 4,
         spaceBetween: 28,
       },
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-      },
+    },
+  });
+
+  new Swiper('.pricing-swiper', {
+    allowTouchMove: true,
+    slidesPerView: 1,
+    spaceBetween: 15,
+    pagination: {
+      el: '.pricing-swiper .swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
       576: {
         slidesPerView: 2,
-        spaceBetween: 10,
+        spaceBetween: 15,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 15,
+      },
+      992: {
+        slidesPerView: 4,
+        spaceBetween: 28,
       },
     },
   });
 
-  $('.needs-validation').on('submit', function(event) {
-    let form = event.target;
+  $('.needs-validation').on('submit', (e) => {
+    const form = e.target;
     if (!form.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
     }
     form.classList.add('was-validated');
   });
+
+  $('.page-loader').remove();
 });

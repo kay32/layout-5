@@ -3,7 +3,8 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify-es').default;
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('node-sass'));
+const packageImporter = require('node-sass-package-importer');
 const del = require('del');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
@@ -34,61 +35,34 @@ const paths = {
   maps: './maps',
 };
 const src = {
-  html: paths.src + '/pages/*.html',
-  templates: paths.src + '/templates/**/*.html',
-  img: paths.src + '/img/**/*.*',
-  css: paths.src + '/css',
-  scss: paths.src + '/sass',
-  js: paths.src + '/js',
-  fonts: paths.src + '/fonts',
-  public: paths.src + '/public',
-  svg: paths.src + '/svg/*.*',
+  html: `${paths.src}/pages/*.html`,
+  templates: `${paths.src}/templates`,
+  img: `${paths.src}/img/**/*.*`,
+  css: `${paths.src}/css`,
+  scss: `${paths.src}/sass`,
+  js: `${paths.src}/js`,
+  fonts: `${paths.src}/fonts`,
+  public: `${paths.src}/public`,
+  svg: `${paths.src}/svg/*.*`,
 };
 const dist = {
-  img: paths.dist + '/img/',
-  css: paths.dist + '/css/',
-  js: paths.dist + '/js/',
-  fonts: paths.dist + '/fonts/',
+  img: `${paths.dist}/img/`,
+  css: `${paths.dist}/css/`,
+  js: `${paths.dist}/js/`,
+  fonts: `${paths.dist}/fonts/`,
 };
 const externalFonts = [
   {
-    src: 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
-    dist: 'font-awesome',
+    src: './node_modules/@fortawesome/fontawesome-free/webfonts/*',
+    name: 'font-awesome',
   },
 ];
 const externalJs = [
-  'node_modules/jquery/dist/jquery.min.js',
-  'node_modules/swiper/swiper-bundle.min.js',
-  'node_modules/bootstrap/dist/js/bootstrap.min.js',
+  './node_modules/jquery/dist/jquery.min.js',
+  './node_modules/swiper/swiper-bundle.min.js',
+  './node_modules/bootstrap/dist/js/bootstrap.min.js',
 ];
-
-/**
- * Получение аргументов командной строки
- * @type {{}}
- */
-const arg = ((argList) => {
-  let arg = {},
-    a,
-    opt,
-    thisOpt,
-    curOpt;
-  for (a = 0; a < argList.length; a++) {
-    thisOpt = argList[a].trim();
-    opt = thisOpt.replace(/^\-+/, '');
-
-    if (opt === thisOpt) {
-      // argument value
-      if (curOpt) arg[curOpt] = opt;
-      curOpt = null;
-    } else {
-      // argument name
-      curOpt = opt;
-      arg[curOpt] = true;
-    }
-  }
-
-  return arg;
-})(process.argv);
+const prod = process.argv.indexOf('--prod') != -1;
 
 /**
  * Очистка папки dist перед сборкой
@@ -128,10 +102,10 @@ function browserSyncReload(done) {
  * @returns {*}
  */
 function copyFonts() {
-  externalFonts.forEach((extFont) => {
-    gulp.src(extFont.src).pipe(gulp.dest(dist.fonts + '/' + extFont.dist));
+  externalFonts.forEach((font) => {
+    gulp.src(font.src).pipe(gulp.dest(`${dist.fonts}/${font.name}`));
   });
-  return gulp.src([src.fonts + '/**/*']).pipe(gulp.dest(dist.fonts));
+  return gulp.src([`${src.fonts}/**/*`]).pipe(gulp.dest(dist.fonts));
 }
 
 /**
@@ -143,7 +117,9 @@ function htmlProcess() {
     .src([src.html])
     .pipe(
       posthtml([
-        include(),
+        include({
+          root: src.templates,
+        }),
         expressions({ removeScriptLocals: true }),
         richtypo({
           attribute: 'data-typo',
@@ -166,18 +142,18 @@ function htmlProcess() {
  */
 function hashProcess() {
   return gulp
-    .src(paths.dist + '/*.html')
+    .src(`${paths.dist}/*.html`)
     .pipe(
       hash_src({
         build_dir: paths.dist,
-        src_path: paths.dist + '/js',
+        src_path: `${paths.dist}/js`,
         exts: ['.js'],
       }),
     )
     .pipe(
       hash_src({
         build_dir: './dist',
-        src_path: paths.dist + '/css',
+        src_path: `${paths.dist}/css`,
         exts: ['.css'],
       }),
     )
@@ -189,10 +165,7 @@ function hashProcess() {
  * @returns {*}
  */
 function imgProcess() {
-  return gulp
-    .src(src.img)
-    .pipe(changed(dist.img))
-    .pipe(gulp.dest(dist.img));
+  return gulp.src(src.img).pipe(changed(dist.img)).pipe(gulp.dest(dist.img));
 }
 
 /**
@@ -200,41 +173,38 @@ function imgProcess() {
  * @returns {*}
  */
 function cssProcess() {
-  let plugins;
-  if (arg.prod === 'true') {
-    plugins = [autoprefixer(), cssnano()];
-  } else {
-    plugins = [];
-  }
+  let plugins = prod ? [autoprefixer(), cssnano()] : [];
   return gulp
-    .src([src.css + '/**/*.*'])
+    .src([`${src.css}/**/*.*`])
     .pipe(concat('libs.min.css'))
     .pipe(postcss(plugins))
-    .pipe(gulp.dest(dist.css));
+    .pipe(gulp.dest(dist.css))
+    .pipe(browserSync.stream());
 }
 
 /**
  * Склейка и обработка scss файлов без минификации
- * Минификации нет, так как дальше эта верстка отдаётся бэкендеру для натяжки на CMS
  * @returns {*}
  */
 function scssProcess() {
   const plugins = [autoprefixer({ grid: true })];
-  if (arg.prod === 'true') {
+  if (prod) {
     return gulp
-      .src([src.scss + '/app.scss'])
-      .pipe(sass())
+      .src([`${src.scss}/app.scss`])
+      .pipe(sass({ importer: packageImporter() }).on('error', sass.logError))
       .pipe(postcss(plugins))
       .pipe(prettier())
-      .pipe(gulp.dest(dist.css));
+      .pipe(gulp.dest(dist.css))
+      .pipe(browserSync.stream());
   } else {
     return gulp
-      .src([src.scss + '/app.scss'])
+      .src([`${src.scss}/app.scss`])
       .pipe(sourcemaps.init())
-      .pipe(sass())
+      .pipe(sass({ importer: packageImporter() }).on('error', sass.logError))
       .pipe(postcss(plugins))
       .pipe(sourcemaps.write(paths.maps))
-      .pipe(gulp.dest(dist.css));
+      .pipe(gulp.dest(dist.css))
+      .pipe(browserSync.stream());
   }
 }
 
@@ -244,7 +214,7 @@ function scssProcess() {
  */
 function libsJsProcess() {
   return gulp
-    .src([src.js + '/!(app)*.js'].concat(externalJs))
+    .src([`${src.js}/!(app)*.js`].concat(externalJs))
     .pipe(concat('libs.min.js'))
     .pipe(babel({ compact: true }))
     .pipe(uglify({ output: { quote_keys: true, ascii_only: true } }))
@@ -256,16 +226,16 @@ function libsJsProcess() {
  * @returns {*}
  */
 function jsProcess() {
-  if (arg.prod === 'true') {
+  if (prod) {
     return gulp
-      .src([src.js + '/app.js'])
+      .src([`${src.js}/app.js`])
       .pipe(beautify())
       .pipe(babel())
       .pipe(prettier())
       .pipe(gulp.dest(dist.js));
   } else {
     return gulp
-      .src([src.js + '/app.js'])
+      .src([`${src.js}/app.js`])
       .pipe(babel())
       .pipe(gulp.dest(dist.js));
   }
@@ -275,7 +245,7 @@ function jsProcess() {
  * Склейка SVG спрайта
  * @returns {*}
  */
-function SVGProcess() {
+function svgProcess() {
   return gulp
     .src(src.svg)
     .pipe(
@@ -296,7 +266,7 @@ function SVGProcess() {
  */
 function publicProcess() {
   return gulp
-    .src([src.public + '/**/*.*', src.public + '/**/.*'])
+    .src([`${src.public}/**/*.*`, `${src.public}/**/.*`])
     .pipe(gulp.dest(paths.dist));
 }
 
@@ -305,16 +275,19 @@ function publicProcess() {
  */
 function watchFiles() {
   gulp.watch(src.html, gulp.series(htmlProcess, browserSyncReload));
-  gulp.watch(src.templates, gulp.series(htmlProcess, browserSyncReload));
-  gulp.watch(src.css, gulp.series(cssProcess, browserSyncReload));
-  gulp.watch(src.scss + '/**/*.*', gulp.series(scssProcess, browserSyncReload));
   gulp.watch(
-    src.js + '/!(app)*.js',
+    `${src.templates}/**/*.html`,
+    gulp.series(htmlProcess, browserSyncReload),
+  );
+  gulp.watch(src.css, cssProcess);
+  gulp.watch(`${src.scss}/**/*.*`, scssProcess);
+  gulp.watch(
+    `${src.js}/!(app)*.js`,
     gulp.series(libsJsProcess, browserSyncReload),
   );
-  gulp.watch(src.js + '/app.js', gulp.series(jsProcess, browserSyncReload));
+  gulp.watch(`${src.js}/app.js`, gulp.series(jsProcess, browserSyncReload));
   gulp.watch(src.img, gulp.series(imgProcess, browserSyncReload));
-  gulp.watch(src.svg, gulp.series(SVGProcess, browserSyncReload));
+  gulp.watch(src.svg, gulp.series(svgProcess, browserSyncReload));
   gulp.watch(src.fonts, gulp.series(copyFonts, browserSyncReload));
   gulp.watch(src.public, gulp.series(publicProcess, browserSyncReload));
 }
@@ -322,7 +295,7 @@ function watchFiles() {
 const build = gulp.series(
   clean,
   gulp.parallel(
-    SVGProcess,
+    svgProcess,
     htmlProcess,
     cssProcess,
     libsJsProcess,
@@ -336,6 +309,5 @@ const build = gulp.series(
 );
 
 const watch = gulp.parallel(gulp.series(build, browserSyncInit), watchFiles);
-
 exports.build = build;
 exports.default = watch;

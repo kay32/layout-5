@@ -1,39 +1,43 @@
-.section-title-primary {
-  margin-bottom: 10px;
-  color: $primary;
-  font-size: 0.875rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-}
-
-.section-title-secondary {
-  margin-bottom: 25px;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.1;
-  @include media-breakpoint-up(md) {
-    font-size: 2.25rem;
-  }
-}
-
 %section-hr-img {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 2'%3E%3Cpath fill='none' stroke-width='2' stroke='%23008ed6' d='M0 1h20m2 0' /%3E%3C/svg%3E");
   width: 42px;
   height: 2px;
 }
 
-.section-hr {
-  margin-bottom: 25px;
-  display: inline-block;
-  @extend %section-hr-img;
+.section-title {
+  font-size: 0;
+
+  &__primary {
+    margin-bottom: $spacer * 0.5;
+
+    color: $primary;
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+  }
+  &__secondary {
+    color: $dark-text;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.1;
+
+    @include media-breakpoint-up(md) {
+      font-size: 2.25rem;
+      margin-bottom: $spacer * 1.2;
+    }
+  }
+  &::after {
+    content: '';
+    display: inline-block;
+    margin-bottom: $spacer * 1.25;
+    @extend %section-hr-img;
+  }
 }
 
 .section-text {
-  margin-bottom: 25px;
-
   color: $light-text;
   font-size: 1.125rem;
-  line-height: 1.625rem;
+  line-height: 1.44;
 }

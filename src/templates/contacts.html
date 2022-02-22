@@ -1,30 +1,33 @@
 <div class="contacts" id="contants">
-    <div class="container-xl">
-        <h3 class="section-title-primary">stay in touch</h3>
-        <h2 class="section-title-secondary">Contact us</h2>
-        <span class="section-hr"></span>
-        <div class="row overflow-hidden">
-            <div class="col-12 col-sm-4 contact-item">
-                <img class="contact-item__icon" src="img/contact-phone.png" alt="contact-phone" width="18" height="32">
-                <ul class="list-unstyled ">
-                    <li><a href="tel:(415)124-5678">Phone: (415) 124-5678</a></li>
-                    <li><a href="tel:(412)123-8290">Fax: (412) 123-8290</a></li>
-                </ul>
+    <div class="container">
+        <div class="section-title">
+            <h3 class="section-title__primary">stay in touch</h3>
+            <h2 class="section-title__secondary">Contact us</h2>
+        </div>
+        <div class="row mb-3 overflow-hidden">
+            <div class="col-12 col-md-4">
+                <div class="contact-item">
+                    <img class="contact-item__icon" src="img/contacts/phone.png" alt="contact-phone" width="18" height="32">
+                    <ul class="contact-item__link-list">
+                        <li><a href="tel:(415)124-5678">Phone: (415) 124-5678</a></li>
+                        <li><a href="tel:(412)123-8290">Fax: (412) 123-8290</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-12 col-sm-4 contact-item">
-                <a href="#" target="_blank">
-                    <img class="contact-item__icon" src="img/contact-address.png" alt="contact-address" width="24"
-                        height="32">
-                    <p>1001 Brickell Bay Dr.<br>
+            <div class="col-12 col-md-4">
+                <a class="contact-item contact-item_link" href="https://goo.gl/maps/x4WUWQin32bFVo4U7" target="_blank">
+                    <img class="contact-item__icon" src="img/contacts/address.png" alt="contact-address" width="24" height="32">
+                    <p class="contact-item__text">
+                        1001 Brickell Bay Dr.<br>
                         Suite 1900<br>
-                        Miami, FL 33131</p>
+                        Miami, FL 33131
+                    </p>
                 </a>
             </div>
-            <div class="col-12 col-sm-4 contact-item">
-                <a href="#" target="_blank">
-                    <img class="contact-item__icon" src="img/contact-email.png" alt="contact-phone" width="32"
-                        height="22">
-                    <p>support@yourname.com</p>
+            <div class="col-12 col-md-4">
+                <a class="contact-item contact-item_link" href="mailto:support@yourname.com" target="_blank">
+                    <img class="contact-item__icon" src="img/contacts/email.png" alt="contact-phone" width="32" height="22">
+                    <p class="contact-item__text">support@yourname.com</p>
                 </a>
             </div>
         </div>
@@ -35,35 +38,26 @@
             <div class="col-12 col-md-6">
                 <div class="form-group">
                     <input class="form-control" type="text" id="name" placeholder="name *" required>
-                    <div class="invalid-feedback">
-                        Please fill out this field.
-                    </div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="email" id="email" placeholder="email *" required>
-                    <div class="invalid-feedback">
-                        Please fill out this field.
-                    </div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" id="subject" placeholder="subject *" required>
-                    <div class="invalid-feedback">
-                        Please fill out this field.
-                    </div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="form-feedback__message-wrapper">
                     <textarea class="form-control" id="message" placeholder="message *" rows="5" required></textarea>
-                    <div class="invalid-feedback">
-                        Please fill out this field.
-                    </div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-center justify-content-md-end">
-            <button class="btn btn-primary text-uppercase" type="submit">send message
-            </button>
+            <button class="btn btn-primary text-uppercase" type="submit">send message</button>
         </div>
     </form>
 </div>

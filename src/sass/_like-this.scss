@@ -1,22 +1,35 @@
 .like-this {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  background-color: $theme-color;
-  color: white;
+  padding: $spacer * 2 0;
+  background-color: $primary-dark;
+
+  color: $white;
+  text-align: center;
   font-size: 1.5rem;
   line-height: 1.3;
 
   .row {
-    row-gap: 25px;
+    row-gap: $spacer;
   }
-
   &__btn-container {
-    column-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: $spacer;
+    column-gap: $spacer;
+    text-transform: uppercase;
   }
 
   @include media-breakpoint-up(md) {
     padding-top: 60px;
     padding-bottom: 59px;
+
     font-size: 2.26rem;
+  }
+  @include media-breakpoint-up(xl) {
+    text-align: left;
+
+    &__btn-container {
+      justify-content: flex-end;
+    }
   }
 }

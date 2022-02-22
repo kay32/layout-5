@@ -1,0 +1,44 @@
+.intro {
+  background-image: url('../img/page-header-background.png');
+  background-size: cover;
+
+  &__btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: $spacer;
+    row-gap: $spacer;
+    margin-bottom: $spacer;
+    text-transform: uppercase;
+  }
+  .section-title {
+    &__secondary {
+      color: $white;
+    }
+    &::after {
+      content: none;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    text-align: center;
+
+    .section-title {
+      margin-top: 36px;
+
+      &__primary {
+        margin-bottom: 18px;
+      }
+      &__secondary {
+        font-size: 3rem;
+        line-height: 1;
+      }
+    }
+    .section-text {
+      margin-bottom: 60px;
+    }
+    &__btn-container {
+      justify-content: flex-start;
+    }
+  }
+}

@@ -1,9 +1,10 @@
 <div class="features" id="features">
-    <div class="container-xl section">
-        <h3 class="section-title-primary">product overview</h3>
-        <h2 class="section-title-secondary">List of amazing features</h2>
-        <span class="section-hr"></span>
-        <div class="swiper">
+    <div class="container">
+        <div class="section-title">
+            <h3 class="section-title__primary">product overview</h3>
+            <h2 class="section-title__secondary">List of amazing features</h2>
+        </div>
+        <div class="swiper features-swiper">
             <div class="swiper-wrapper">
                 <script locals>
                     module.exports = {
@@ -11,38 +12,39 @@
                             [{
                                 name: 'Responsive',
                                 about: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
-                                icon: "img/feature-responsive.png",
+                                icon: "responsive.png",
                                 alt: "feature-responsive",
                             },
                             {
                                 name: 'Customizable',
                                 about: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
-                                icon: "img/feature-customizable.png",
+                                icon: "customizable.png",
                                 alt: "feature-customizable",
                             },
                             {
                                 name: 'Lovely design',
                                 about: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
-                                icon: "img/feature-lovely-design.png",
+                                icon: "lovely-design.png",
                                 alt: "feature-lovely-design",
                             },
                             {
                                 name: 'Mobile Friendly',
                                 about: 'Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.',
-                                icon: "img/feature-mobile-friendly.png",
+                                icon: "mobile-friendly.png",
                                 alt: "feature-mobile-friendly",
                             }]
                     }
                 </script>
                 <each loop="feature in features">
+                    <!-- feature slide start -->
                     <div class="swiper-slide feature-item">
                         <div class="feature-item__icon-wrapper">
-                            <img class="feature-item__icon" src="{{feature.icon}}" alt="{{feature.alt}}" width="32"
-                                height="32">
+                            <img src="img/features/{{feature.icon}}" alt="{{feature.alt}}" width="32" height="32">
                         </div>
-                        <p class="feature-item__name">{{feature.name}}</p>
+                        <h4 class="feature-item__title">{{feature.name}}</h4>
                         <p class="feature-item__about">{{feature.about}}</p>
                     </div>
+                    <!-- feature slide end -->
                 </each>
             </div>
             <div class="swiper-pagination"></div>
